@@ -1,0 +1,14 @@
+produto:
+
+nome
+descrição
+grupo
+preço
+preço promoção
+pausado
+
+
+grupo:
+nome
+pausado
+

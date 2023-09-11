@@ -67,20 +67,7 @@
                                 </nav>
                                 
                             </div>
-
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Dark</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light</a>
-                                </nav>
-                            </div>
-
+                            
                             <div class="sb-sidenav-menu-heading">VENDAS</div>
                             <a class="nav-link" href="/pedidos">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -135,21 +122,25 @@
                                         <tr>
                                             <td>{{ produto.nome }}</td>
                                             <td>{{ produto.id_produto }}</td>
-                                            <td>{{ produto.preco_original }}</td>
+                                            <td>R$ {{ produto.preco_original }}</td>
                                             <td>{{ produto.grupo.nome }}</td>
                                             <td>
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" id="pausado{{ forloop.counter }}" {% if produto.pausado %}checked{% endif %}>
-                                                    <label class="form-check-label" for="pausado{{ forloop.counter }}"> {% if produto.pausado %}Sim{% else %}Não{% endif %} </label>
+                                                <div class="dropdown">
+                                                    <label class="form-check-label" id="labelPausado{{ forloop.counter }}" for="pausado{{ forloop.counter }}">
+                                                        {% if produto.pausado == 'S' %}Sim{% else %}Não{% endif %}
+                                                    </label>
                                                 </div>
+                                                
                                                 <td>
                                                     <div class="dropdown">
-                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <!-- Você pode adicionar um ícone aqui, se desejar -->
-                                                        </button>
+                                                        <a class="btn btn-secondary" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fas fa-bars"></i>
+                                                        </a>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item" href="#">Editar</a>
-                                                            <a class="dropdown-item" href="#">Excluir</a>
+                                                            <a class="dropdown-item" href="{% url 'alterar_produto' produto.id_produto %}">Editar</a>
+                                                            <a class="dropdown-item" href="{% url 'deletar_produto' produto.id_produto %}">Excluir</a>
+                                                            <a class="dropdown-item" href="{% url 'atualizar_status_produto' produto.id_produto %}">Pausar/Retomar</a>                          
+                                                                        
                                                         </div>
                                                     </div>
                                                 </td>
@@ -187,5 +178,6 @@
         <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="{% static 'js/datatables-simple-demo.js' %}"></script>
+
     </body>
 </html>

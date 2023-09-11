@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,8 +10,11 @@
         <meta name="author" content="" />
         <title>{% block title %} Harg {% endblock %}</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
         
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
         
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
@@ -64,20 +67,7 @@
                                 </nav>
                                 
                             </div>
-
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Dark</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light</a>
-                                </nav>
-                            </div>
-
+                        
                             <div class="sb-sidenav-menu-heading">VENDAS</div>
                             <a class="nav-link" href="/pedidos">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -97,20 +87,67 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
-                        
-                    </div>
+                    <main>
+                        <div class="container-fluid px-4">
+                            <h1 class="mt-4">Grupos</h1>
+                            <ol class="breadcrumb mb-4">
+                                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Grupos</li>
+                            </ol>
 
-                    
+                            <div class="mb-4">
+                                <a href="{% url 'cadastrar_grupo' %}" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> Adicionar Grupo
+                                </a>
+                                
+                            </div>
 
+                            <div class="card mb-4">
 
-                    
+                                <table id="example" class="display">
+                                    <thead>
+                                        <tr>
 
-
+                                            <th>Nome</th>
+                                            <th>Id</th>
+                                            <th>Pausado</th>
+                                            <th>Ajustes</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for grupo in grupos %}
+                                        <tr>
+                                            <td>{{ grupo.nome }}</td>
+                                            <td>{{ grupo.id_grupo }}</td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <label class="form-check-label" id="labelPausado{{ forloop.counter }}" for="pausado{{ forloop.counter }}">
+                                                        {% if grupo.pausado == 'S' %}Sim{% else %}Não{% endif %}
+                                                    </label>
+                                                </div>
+                                                
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <a class="btn btn-secondary" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fas fa-bars"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item" href="{% url 'alterar_grupo' grupo.id_grupo %}">Editar</a>
+                                                            <a class="dropdown-item" href="{% url 'deletar_grupo' grupo.id_grupo %}">Excluir</a>
+                                                            <a class="dropdown-item" href="{% url 'atualizar_status_grupo' grupo.id_grupo %}">Pausar/Retomar</a>                          
+                                                                        
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </main>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
@@ -133,5 +170,10 @@
         <script src="{% static 'assets/demo/chart-bar-demo.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
+
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="{% static 'js/datatables-simple-demo.js' %}"></script>
+
     </body>
 </html>

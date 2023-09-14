@@ -10,6 +10,12 @@ class Cliente(AbstractUser):
     rua = models.CharField(max_length=100, null=True, blank=True)
     bairro = models.CharField(max_length=100, null=True, blank=True)
     numero = models.IntegerField(null=True, blank=True)
+    # complemento = models.CharField(max_length=30)
+    # cidade = models.CharField(max_length=30)
+    # estado = models.CharField(max_length=30)
+    # add depois
+
+
 
     GENDER_CHOICES = [
         ('M', 'Masculino'),

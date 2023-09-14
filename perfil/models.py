@@ -4,9 +4,12 @@ from django.contrib.auth.models import AbstractUser
 
 class Cliente(AbstractUser):
     telefone = models.CharField(max_length=15, null=True, blank=True)
-    endereco = models.TextField(null=True, blank=True)
     data_nascimento = models.DateField(null=True, blank=True)
     cpf = models.CharField(max_length=14, null=True, blank=True)
+    cep = models.CharField(max_length=10, null=True, blank=True)
+    rua = models.CharField(max_length=100, null=True, blank=True)
+    bairro = models.CharField(max_length=100, null=True, blank=True)
+    numero = models.IntegerField(null=True, blank=True)
 
     GENDER_CHOICES = [
         ('M', 'Masculino'),

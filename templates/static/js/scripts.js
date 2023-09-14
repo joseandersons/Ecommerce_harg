@@ -17,3 +17,18 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
+let cartItems = 0;  // Este valor seria dinamicamente atualizado com base nos itens do carrinho
+
+// Função para adicionar um item ao carrinho
+function addItemToCart() {
+    cartItems++;
+    document.getElementById("cart-count").textContent = cartItems + "x";
+}
+
+// Função para remover um item do carrinho
+function removeItemFromCart() {
+    if (cartItems > 0) {
+        cartItems--;
+        document.getElementById("cart-count").textContent = cartItems + "x";
+    }
+}

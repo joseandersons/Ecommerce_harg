@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+def login_cliente(request):
+    return render(request, 'login.html')
+
+
+def criar_conta_cliente(request):
+    return render(request, 'criar-conta-cliente.html')

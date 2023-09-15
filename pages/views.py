@@ -12,4 +12,3 @@ def principal(request):
         return render(request, 'index.html', {'nome_usuario': nome_usuario})
     else:
         return render(request, 'index.html')
-

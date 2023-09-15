@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'perfil',
     'produto',
     'pedido',
-    'lojas',
+    # 'lojas',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -176,5 +176,4 @@ INTERNAL_IPS = [
 ]
 
 AUTH_USER_MODEL = 'perfil.Cliente'
-
 

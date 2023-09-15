@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from lojas.models import Loja
+# from lojas.models import Loja
 
 
 
@@ -9,7 +9,7 @@ class Pedido(models.Model):
 
     total = models.FloatField()
     data_hora = models.DateTimeField(auto_now_add=True)
-    loja = models.ForeignKey(Loja, on_delete=models.CASCADE)
+    # loja = models.ForeignKey(Loja, on_delete=models.CASCADE)
     status = models.CharField(
         default="C",
         max_length=1,
@@ -39,4 +39,3 @@ class ItemPedido(models.Model):
 class Meta:
     verbose_name = 'Item do pedido'
     verbose_name_plural = 'Itens do pedido'
-

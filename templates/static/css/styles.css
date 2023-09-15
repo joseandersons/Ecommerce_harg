@@ -666,7 +666,6 @@ progress {
     max-width: 1320px;
   }
 }
-
 .row {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
@@ -11242,4 +11241,3 @@ body {
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
 }
-

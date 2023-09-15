@@ -125,4 +125,3 @@ def login_cliente(request):
         return render(request, 'login-cliente.html')
     return render(request, 'login-cliente.html')
 
-

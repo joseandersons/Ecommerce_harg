@@ -7,5 +7,9 @@ def dashboard(request):
     return render(request, 'dashboard.html')
 
 def principal(request):
-    return render(request, 'index.html')
+    if request.method == 'GET':
+        nome_usuario = request.user.username if request.user.is_authenticated else 'Visitante'
+        return render(request, 'index.html', {'nome_usuario': nome_usuario})
+    else:
+        return render(request, 'index.html')
 

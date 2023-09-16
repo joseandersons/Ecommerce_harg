@@ -175,5 +175,10 @@ INTERNAL_IPS = [
     # ...
 ]
 
-AUTH_USER_MODEL = 'perfil.Cliente'
+AUTH_USER_MODEL = 'perfil.Usuario'
+
+
+
+
+
 

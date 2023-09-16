@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from produto.models import Produto, Grupo
+from django.contrib.auth.decorators import login_required
 
 
 def dashboard(request):

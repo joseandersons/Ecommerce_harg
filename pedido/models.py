@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class Pedido(models.Model):
-    usuario = models.ForeignKey('perfil.Cliente', on_delete=models.CASCADE)
+    usuario = models.ForeignKey('clientes.Cliente', on_delete=models.CASCADE)
 
     total = models.FloatField()
     data_hora = models.DateTimeField(auto_now_add=True)

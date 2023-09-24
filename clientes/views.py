@@ -22,6 +22,12 @@ def principal(request):
         return render(request, 'index.html')
 
 
+def logout_cliente(request):
+    logout(request)
+    messages.success(request, 'Você saiu com sucesso.')
+    return redirect('clientes:principal')
+
+
 def validador_cpf(cpf):
     # Retira formatação do CPF
     cpf = ''.join(c for c in cpf if c.isdigit())

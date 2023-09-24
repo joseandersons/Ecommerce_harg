@@ -1,4 +1,5 @@
 from django.db import models
+from lojas.models import Loja
 
 
 # Create your models here.
@@ -7,12 +8,14 @@ class Grupo(models.Model):
     id_grupo = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255)
     pausado = models.CharField(default='N', max_length=1)
+    user = models.ForeignKey(Loja, on_delete=models.CASCADE)
 
     def __str__(self):
             return self.nome
 
 class Produto(models.Model):
     
+    user = models.ForeignKey(Loja, on_delete=models.CASCADE)
     id_produto = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255)
     descricao = models.TextField()

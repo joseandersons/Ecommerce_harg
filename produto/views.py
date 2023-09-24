@@ -5,11 +5,11 @@ from .models import Produto, Grupo
 
 
 def consulta_produtos(request):
-    produtos = Produto.objects.all()
+    produtos = Produto.objects.filter(user=request.user)
     return render(request, 'consulta-produtos.html', {'produtos': produtos})
 
 def consulta_grupos(request):
-    grupos = Grupo.objects.all()
+    grupos = Grupo.objects.filter(user=request.user)
     return render(request, 'consulta-grupos.html', {'grupos': grupos})
 
 
@@ -37,7 +37,8 @@ def cadastrar_produto(request):
         if grupo_id:
            grupo = Grupo.objects.get(id_grupo=grupo_id)
 
-        
+        loja = request.user.loja
+    
         produto = Produto(
             nome=nome,
             descricao=descricao,
@@ -46,12 +47,13 @@ def cadastrar_produto(request):
             preco_promocional=preco_promocional,
             imagem=imagem,
             pausado=pausado,
+            user=loja
         )
         produto.save()
         
-        return redirect('consulta_produtos')
+        return redirect('lojas:cadastros:consulta_produtos')
     else:
-        grupos = Grupo.objects.all()
+        grupos = Grupo.objects.filter(user=request.user)
         context = {'grupos': grupos}
         return render(request, 'cadastro-produto.html', context)
 
@@ -63,9 +65,9 @@ def atualizar_status_produto(request, produto_id):
         novo_status = 'S' if produto.pausado == 'N' else 'N'
         produto.pausado = novo_status
         produto.save()
-        return redirect('consulta_produtos')
+        return redirect('lojas:cadastros:consulta_produtos')
     else:
-        return redirect('consulta_produtos')
+        return redirect('lojas:cadastros:consulta_produtos')
     
 
 
@@ -94,10 +96,10 @@ def alterar_produto(request, produto_id):
 
         produto.save()
         
-        return redirect('consulta_produtos')
+        return redirect('lojas:cadastros:consulta_produtos')
 
     else:
-        grupos = Grupo.objects.all()
+        grupos = Grupo.objects.filter(user=request.user)
         context = {'grupos': grupos, 'produto': produto}
         return render(request, 'alterar-produto.html', context)
 
@@ -107,7 +109,7 @@ def deletar_produto(request, produto_id):
     produto = get_object_or_404(Produto, id_produto=produto_id)
     produto.delete()
     messages.success(request, 'Produto deletado com sucesso.')
-    return redirect('consulta_produtos')
+    return redirect('lojas:cadastros:consulta_produtos')
 
 
 
@@ -118,13 +120,15 @@ def cadastrar_grupo(request):
         nome = request.POST.get('nome')
         pausado = request.POST.get('pausado')
         
+        loja = request.user.loja
         grupo = Grupo(
             nome=nome,
             pausado=pausado,
+            user=loja
         )
         grupo.save()
         
-        return redirect('consulta_grupos')
+        return redirect('lojas:cadastros:consulta_grupos')
     else:
         return render(request, 'cadastro-grupo.html')
     
@@ -135,7 +139,7 @@ def deletar_grupo(request, id_grupo):
     
     grupo.delete()
     messages.success(request, 'Grupo deletado com sucesso.')
-    return redirect('consulta_grupos')
+    return redirect('lojas:cadastros:consulta_grupos')
 
 
 def atualizar_status_grupo(request, id_grupo):
@@ -145,9 +149,9 @@ def atualizar_status_grupo(request, id_grupo):
         novo_status = 'S' if grupo.pausado == 'N' else 'N'
         grupo.pausado = novo_status
         grupo.save()
-        return redirect('consulta_grupos')
+        return redirect('lojas:cadastros:consulta_grupos')
     else:
-        return redirect('consulta_grupos')
+        return redirect('lojas:cadastros:consulta_grupos')
 
 
 def alterar_grupo(request, id_grupo):
@@ -158,7 +162,7 @@ def alterar_grupo(request, id_grupo):
         grupo.pausado = request.POST.get('pausado', grupo.pausado)
         grupo.save()
         
-        return redirect('consulta_grupos')
+        return redirect('lojas:cadastros:consulta_grupos')
 
     else:
         context = {'grupo': grupo}

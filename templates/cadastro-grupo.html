@@ -18,7 +18,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="{% url 'dashboard' %}">Harg</a>
+            <a class="navbar-brand ps-3" href="{% url 'lojas:dashboard' %}">Harg</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -47,7 +47,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
 
-                            <a class="nav-link" href="{% url 'dashboard' %}">
+                            <a class="nav-link" href="{% url 'lojas:dashboard' %}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
@@ -59,8 +59,8 @@
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link" href="{% url 'consulta_grupos' %}">Grupos</a>
-                                    <a class="nav-link" href="{% url 'consulta_produtos' %}">Produtos</a>
+                                    <a class="nav-link" href="{% url 'lojas:cadastros:consulta_grupos' %}">Grupos</a>
+                                    <a class="nav-link" href="{% url 'lojas:cadastros:consulta_produtos' %}">Produtos</a>
                                 </nav>
                                 
                             </div>
@@ -107,7 +107,7 @@
                         <div class="row justify-content-center">
                         <div class="col-md-6">
                             <h1>Cadastrar Grupo</h1>
-                            <form action="{% url 'cadastrar_grupo' %}" method="post" enctype="multipart/form-data">
+                            <form action="{% url 'lojas:cadastros:cadastrar_grupo' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="mb-3">
                                 <label for="nome" class="form-label">Nome</label>

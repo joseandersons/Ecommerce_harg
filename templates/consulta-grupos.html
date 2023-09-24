@@ -21,7 +21,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="{% url 'dashboard' %}">Harg</a>
+            <a class="navbar-brand ps-3" href="{% url 'lojas:dashboard' %}">Harg</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -50,7 +50,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
 
-                            <a class="nav-link" href="{% url 'dashboard' %}">
+                            <a class="nav-link" href="{% url 'lojas:dashboard' %}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
@@ -62,8 +62,8 @@
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link" href="{% url 'consulta_grupos' %}">Grupos</a>
-                                    <a class="nav-link" href="{% url 'consulta_produtos' %}">Produtos</a>
+                                    <a class="nav-link" href="{% url 'lojas:cadastros:consulta_grupos' %}">Grupos</a>
+                                    <a class="nav-link" href="{% url 'lojas:cadastros:consulta_produtos' %}">Produtos</a>
                                 </nav>
                                 
                             </div>
@@ -91,12 +91,12 @@
                         <div class="container-fluid px-4">
                             <h1 class="mt-4">Grupos</h1>
                             <ol class="breadcrumb mb-4">
-                                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="{% url 'lojas:dashboard' %}">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Grupos</li>
                             </ol>
 
                             <div class="mb-4">
-                                <a href="{% url 'cadastrar_grupo' %}" class="btn btn-primary">
+                                <a href="{% url 'lojas:cadastros:cadastrar_grupo' %}" class="btn btn-primary">
                                     <i class="fas fa-plus"></i> Adicionar Grupo
                                 </a>
                                 
@@ -133,9 +133,9 @@
                                                             <i class="fas fa-bars"></i>
                                                         </a>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item" href="{% url 'alterar_grupo' grupo.id_grupo %}">Editar</a>
-                                                            <a class="dropdown-item" href="{% url 'deletar_grupo' grupo.id_grupo %}">Excluir</a>
-                                                            <a class="dropdown-item" href="{% url 'atualizar_status_grupo' grupo.id_grupo %}">Pausar/Retomar</a>                          
+                                                            <a class="dropdown-item" href="{% url 'lojas:cadastros:alterar_grupo' grupo.id_grupo %}">Editar</a>
+                                                            <a class="dropdown-item" href="{% url 'lojas:cadastros:deletar_grupo' grupo.id_grupo %}">Excluir</a>
+                                                            <a class="dropdown-item" href="{% url 'lojas:cadastros:atualizar_status_grupo' grupo.id_grupo %}">Pausar/Retomar</a>                          
                                                                         
                                                         </div>
                                                     </div>

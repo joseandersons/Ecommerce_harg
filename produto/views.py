@@ -20,7 +20,7 @@ def cadastrar_produto(request):
         grupo_id = request.POST.get('grupo')
         preco_original = request.POST.get('preco_original')
         preco_promocional = request.POST.get('preco_promocional')
-        imagem = request.FILES.get('imagem')  # Se for um campo de arquivo
+        imagem = request.FILES.get('imagem') 
         pausado = request.POST.get('pausado')
         
         

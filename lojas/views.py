@@ -103,7 +103,7 @@ def criar_conta_loja(request):
         horario_abertura = request.POST.get('horario_abertura')
         horario_fechamento = request.POST.get('horario_fechamento')
         rating = request.POST.get('rating')
-        imagem = request.POST.get('imagem')
+        imagem = request.FILES.get('imagem') 
         tipo_culinaria = request.POST.get('tipo_culinaria')
         
 

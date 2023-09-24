@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from core.views import cliente_required
+from lojas.models import Loja
 from produto.models import Produto, Grupo
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -20,6 +21,11 @@ def principal(request):
         return render(request, 'index.html', {'nome_usuario': nome_usuario})
     else:
         return render(request, 'index.html')
+
+@cliente_required
+def consulta_restaurantes(request):
+    lojas = Loja.objects.all()
+    return render(request, 'consulta-restaurantes.html', {'lojas': lojas, 'user': request.user})
 
 
 def logout_cliente(request):

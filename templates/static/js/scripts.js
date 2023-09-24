@@ -23,3 +23,14 @@ $(document).ready(function() {
         interval: 4000 // Define o intervalo entre os slides em milissegundos
     });
 });
+
+
+function scrollLeft() {
+    let container = document.getElementById('scrollableArea');
+    container.scrollLeft -= 200; // ajuste este valor conforme necessário
+}
+
+function scrollRight() {
+    let container = document.getElementById('scrollableArea');
+    container.scrollLeft += 200; // ajuste este valor conforme necessário
+}

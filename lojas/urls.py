@@ -12,3 +12,4 @@ urlpatterns = [
     path('logout-loja', views.logout_loja, name='logout_loja'),
     
 ] 
+

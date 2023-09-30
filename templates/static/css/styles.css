@@ -11284,3 +11284,8 @@ body {
   height: 200px;  /* ou a altura que você desejar */
   object-fit: cover;
 }
+
+
+.clickable {
+  cursor: pointer;
+}

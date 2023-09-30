@@ -27,6 +27,17 @@ def consulta_restaurantes(request):
     lojas = Loja.objects.all()
     return render(request, 'consulta-restaurantes.html', {'lojas': lojas, 'user': request.user})
 
+@cliente_required
+def consulta_produtos_loja(request, loja_id):
+    grupos = Grupo.objects.filter(user_id=loja_id)
+    
+    context = {
+        'grupos': [(grupo, Produto.objects.filter(grupo=grupo, user_id=loja_id)) for grupo in grupos]
+    }
+    
+    return render(request, 'consulta-produtos-loja.html', context)
+
+
 
 def logout_cliente(request):
     logout(request)

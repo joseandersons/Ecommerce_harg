@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -85,104 +85,41 @@
                 <main>
                     
                     <main>
-                        <div class="container mt-5">
-                            <div class="row">
-                        
-                                <div class="col-md-2 text-center"> 
-                                    
-                                    <div class="custom-image-container">
-                                        <img src="{% static 'img/brasileira.jpg' %}" class="custom-image" alt="Imagem 1">
-                                    </div>
-                                    <div class="image-name">Brasileira</div>
-                                </div>
-                                
-                        
-                                <div class="col-md-2 text-center"> 
-                                    
-                                    <div class="custom-image-container">
-                                        <img src="{% static 'img/italiana.jpg' %}" class="custom-image" alt="Imagem 1">
-                                    </div>
-                                    <div class="image-name">Italiana</div>
-                                </div>
-                                <div class="col-md-2 text-center"> 
-                                    
-                                    <div class="custom-image-container">
-                                        <img src="{% static 'img/americana.jpg' %}" class="custom-image" alt="Imagem 1">
-                                    </div>
-                                    <div class="image-name">Americana</div>
-                                </div>
-                                <div class="col-md-2 text-center"> 
-                                    
-                                    <div class="custom-image-container">
-                                        <img src="{% static 'img/japonesa.jpg' %}" class="custom-image" alt="Imagem 1">
-                                    </div>
-                                    <div class="image-name">Japonesa</div>
-                                </div>
-                                <div class="col-md-2 text-center"> 
-                                    
-                                    <div class="custom-image-container">
-                                        <img src="{% static 'img/mexicana.jpg' %}" class="custom-image" alt="Imagem 1">
-                                    </div>
-                                    <div class="image-name">Mexicana</div>
-                                </div>
-                                <div class="col-md-2 text-center"> 
-                                    
-                                    <div class="custom-image-container">
-                                        <img src="{% static 'img/outras.jpg' %}" class="custom-image" alt="Imagem 1">
-                                    </div>
-                                    <div class="image-name">Outras</div>
-                                </div>
-                                
-                        
-                            </div>
-                        </div>
-                        
-                        
-                        
-                    </main>
-                    <div class="container mt-4">
-                        <h5 class="text-uppercase py-3 mb-4 border-bottom">Ofertas</h5>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <img src="{% static 'img/img1.jpg' %}" class="img-fluid custom-img" alt="Imagem 1">
-                            </div>
-                            <div class="col-md-3">
-                                <img src="{% static 'img/img2.jpg' %}" class="img-fluid custom-img" alt="Imagem 2">
-                            </div>
-                            <div class="col-md-3">
-                                <img src="{% static 'img/img3.jpg' %}" class="img-fluid custom-img" alt="Imagem 3">
-                            </div>
-                            <div class="col-md-3">
-                                <img src="{% static 'img/img1.jpg' %}" class="img-fluid custom-img" alt="Imagem 1">
-                            </div>
-                                                            
-                        </div>
 
-                    </div>
-
-                    <div class="container mt-5">
-                        <h5 class="text-uppercase py-3 mb-4 border-bottom">Lojas</h5>
-                        <div class="row">
-                            <div class="scrollable-container">
-                                {% for loja in lojas %}
-                                <div class="text-center scrollable-item"> 
-                                    <div class="custom-image-container">
-                                        <a href="{% url 'clientes:consulta_produtos_loja' loja.id %}">
-                                        {% if loja.imagem %}
-                                            <img src="{{ loja.imagem.url }}" class="custom-image" alt="{{ loja.first_name }}">
-                                        {% else %}
-                                            
-                                            <img src="{% static 'path/to/default/image.jpg' %}" class="custom-image" alt="Placeholder">
-                                        {% endif %}
+                        <div class="container"> 
+                            <main>
+                                {% for grupo, produtos in grupos %}
+                                    <h2>{{ grupo.nome }}</h2>
+                                    <div class="row">
+                                        {% for produto in produtos %}
+                                            <div class="col-md-3">
+                                                <div class="card">
+                                                    {% if produto.imagem %}
+                                                        <img src="{{ produto.imagem.url }}" class="card-img-top custom-card-image" alt="{{ produto.nome }}">
+                                                    {% else %}
+                                                        <img src="{% static 'path/to/default/image.jpg' %}" class="card-img-top custom-card-image" alt="Sem imagem">
+                                                    {% endif %}
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">{{ produto.nome }}</h5>
+                                                        <p class="card-text">{{ produto.descricao }}</p>
+                                                        {% if produto.preco_promocional and produto.preco_promocional != '0' %}
+                                                        <p class="card-text">
+                                                            De R$
+                                                            <strike>{{ produto.preco_original }}</strike> por R${{ produto.preco_promocional }}
+                                                        </p>
+                                                        {% else %}
+                                                        R$
+                                                        <p class="card-text">{{ produto.preco_original }}</p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
                                     </div>
-                                    <div class="image-name">{{ loja.first_name}}</div>
-                                </div>
                                 {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    
-                    
+                            </main>
+                        </div> 
+                    </main>
                     
                 </main>
                

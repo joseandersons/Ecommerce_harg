@@ -11278,3 +11278,9 @@ body {
     flex: 0 0 auto; /* isso garante que os itens não tentem se ajustar flexivelmente, fazendo-os manter seu tamanho e não se esticar */
     margin-right: 50px; /* um pequeno espaço entre os itens */
 }
+
+.custom-card-image {
+  width: 100%;
+  height: 200px;  /* ou a altura que você desejar */
+  object-fit: cover;
+}

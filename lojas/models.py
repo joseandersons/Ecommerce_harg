@@ -18,6 +18,7 @@ class Loja(Usuario):
         ('IT', 'Italiana'),
         ('AM', 'Americana'),
         ('JP', 'Japonesa'),
+        ('MX', 'Mexicana'),
         ('OU', 'Outra'),
     ]
     tipo_culinaria = models.CharField(max_length=2, choices=TIPO_CULINARIA_CHOICES, default='OU')

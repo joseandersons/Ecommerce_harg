@@ -3,7 +3,7 @@ from django.db import models
 from core.models import Usuario
 
 class Cliente(Usuario):
-
+    
     data_nascimento = models.DateField(null=True, blank=True)
     cpf = models.CharField(max_length=14, null=True, blank=True)
 

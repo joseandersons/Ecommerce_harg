@@ -1,12 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
-# from lojas.models import Loja
+from uuid import uuid4
 
 
 
 class Pedido(models.Model):
-    usuario = models.ForeignKey('clientes.Cliente', on_delete=models.CASCADE)
-
+    usuario = models.ForeignKey('clientes.Cliente', null=True, blank=True, on_delete=models.CASCADE)
+    uuid = models.UUIDField(default=uuid4, editable=False, unique=True, null=True, blank=True)
     total = models.FloatField()
     data_hora = models.DateTimeField(auto_now_add=True)
     # loja = models.ForeignKey(Loja, on_delete=models.CASCADE)

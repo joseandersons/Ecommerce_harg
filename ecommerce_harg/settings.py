@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     #TODO: REMOVER DEBUG TOOLBAR
     "debug_toolbar",
 
+    'corsheaders',
+
 ]
 
 MIDDLEWARE = [
@@ -58,6 +60,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
 
+    'corsheaders.middleware.CorsMiddleware',
     #TODO: REMOVER DEBUG TOOLBAR
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
@@ -177,6 +180,9 @@ INTERNAL_IPS = [
 ]
 
 AUTH_USER_MODEL = 'core.Usuario'
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
 
 
 

@@ -27,7 +27,7 @@
                     <input class="form-control" type="text" placeholder="Pesquisa..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                 </div>
-            </form>
+            </form action="{% url 'clientes:pedido:adicionar_carrinho' %}">
             <div class="d-flex align-items-center">
                 <a href="#" class="text-decoration-none text-white">
                     <i class="fas fa-shopping-cart"></i> <span id="cart-quantity">0x</span>
@@ -94,7 +94,9 @@
                                     <div class="row">
                                         {% for produto in produtos %}
                                             <div class="col-md-3">
-                                                <div class="card clickable" data-produto-id="{{ produto.id }}">
+                                                <div class="card clickable" data-produto-id="{{ produto.id }}" onclick="mostrarProduto({{ produto.id }});">
+
+
                                                     {% if produto.imagem %}
                                                         <img src="{{ produto.imagem.url }}" class="card-img-top custom-card-image" alt="{{ produto.nome }}">
                                                     {% else %}
@@ -142,7 +144,7 @@
                                         </div>
                                         <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                        <button type="button" class="btn btn-primary">Adicionar ao Carrinho</button>
+                                        <button type="button" id="btnAdicionarAoCarrinho" class="btn btn-primary">Adicionar ao Carrinho</button>
                                         </div>
                                     </div>
                                     </div>

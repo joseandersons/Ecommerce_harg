@@ -12,4 +12,7 @@ urlpatterns = [
     path('login-cliente/', views.login_cliente, name='login_cliente'),
     path('cadastro-cliente/', views.criar_conta_cliente, name='criar_conta_cliente'),
     path('logout-cliente', views.logout_cliente, name='logout_cliente'),
+
+    path('adicionar-item-carrinho/', include('pedido.urls', namespace='pedido')),
+    
 ] 

@@ -37,8 +37,11 @@ function scrollRight() {
 }
 
 
+
 document.addEventListener("DOMContentLoaded", function() {
-    var produtos = document.querySelectorAll('.card');
+    var produtos = document.querySelectorAll('.card.clickable');
+    var modalElement = document.getElementById('produtoModal');
+    var adicionarAoCarrinhoBtn = document.getElementById('btnAdicionarAoCarrinho');
     var quantidadeDisplay = document.getElementById('quantidadeDisplay');
     var adicionarBtn = document.getElementById('adicionarQuantidade');
 
@@ -49,9 +52,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     produtos.forEach(function(produto) {
         produto.addEventListener('click', function() {
-            var nome = this.querySelector('.card-title').innerText;
-            var descricao = this.querySelector('.card-text').innerText;
-            var imagemSrc = this.querySelector('.card-img-top').src;
+            var nome = produto.querySelector('.card-title').innerText;
+            var descricao = produto.querySelector('.card-text').innerText;
+            var imagemSrc = produto.querySelector('.card-img-top').src;
+            var produtoId = produto.getAttribute('data-produto-id');
 
             // Reset the quantity display to 1
             quantidadeDisplay.innerText = '1';
@@ -60,8 +64,67 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('produtoDescricao').innerText = descricao;
             document.getElementById('produtoImagem').src = imagemSrc;
 
-            var modal = new bootstrap.Modal(document.getElementById('produtoModal'));
+            // Associate product ID with the button
+            adicionarAoCarrinhoBtn.setAttribute('data-produto-id', produtoId);
+
+            var modal = new bootstrap.Modal(modalElement);
             modal.show();
         });
     });
 });
+
+document.getElementById('btnAdicionarAoCarrinho').addEventListener('click', function() {
+    var produtoId = this.getAttribute('data-produto-id');
+    var quantity = parseInt(document.getElementById('quantidadeDisplay').innerText, 10);
+
+    $.ajax({
+        url: '/adicionar-item-carrinho/',  // URL do seu endpoint
+        method: 'POST',
+        data: JSON.stringify({
+            product_id: produtoId,
+            quantity: quantity
+        }),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function(response) {
+            if(response.success) {
+                alert('Produto adicionado ao carrinho com sucesso!');
+                
+                // Update cart quantity display
+                document.getElementById('cart-quantity').innerText = response.cart_quantity + "x";
+            } else {
+                alert('Houve um erro ao adicionar o produto ao carrinho: ' + response.message);
+            }
+        },
+        
+        
+        
+        error: function() {
+            alert('Erro ao comunicar com o servidor. Tente novamente.');
+        }
+    });
+});
+
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+        }
+    }
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}

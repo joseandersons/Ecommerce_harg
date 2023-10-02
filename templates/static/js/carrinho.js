@@ -57,6 +57,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 item.quantity--;
                 updateLocalStorage(cartItems);
                 itemQuantity.innerText = item.quantity;
+                refreshPage();
             }
         
         });
@@ -74,6 +75,7 @@ window.addEventListener("DOMContentLoaded", () => {
             item.quantity++;
             updateLocalStorage(cartItems);
             itemQuantity.innerText = item.quantity;
+            refreshPage();
         });
         quantityDiv.appendChild(increaseButton);
 
@@ -104,9 +106,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
     totalDiv.appendChild(totalDisplay)
     cartDisplayArea.appendChild(totalDiv);
-
-    
-
 
     let paymentDiv = document.createElement('div');
     paymentDiv.className = 'payment-control';
@@ -218,3 +217,14 @@ function updateLocalStorage(cartItems) {
     localStorage.setItem('carrinho', JSON.stringify(cartItems));
 }
 
+function refreshPage() {
+    $.ajax({
+        url: '', // URL atual
+        type: 'GET',
+        success: function(data) {
+            document.open();
+            document.write(data);
+            document.close();
+        }
+    });
+}

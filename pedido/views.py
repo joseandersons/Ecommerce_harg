@@ -100,6 +100,8 @@ def adicionar_carrinho_banco(request):
                 item_pedido.save()
                 pedido.total += subtotal
                 pedido.save()
+            else:
+                return JsonResponse({"success": True, "redirect_url": "/login-cliente/"}, status=201)
         pedido.payment_method = payment_method
         pedido.save()
 

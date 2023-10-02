@@ -197,3 +197,23 @@ def login_cliente(request):
         
         return render(request, 'login-cliente.html')
     return render(request, 'login-cliente.html')
+
+
+
+def consulta_pedidos(request):
+   
+    if request.method == 'GET':
+        
+        # if request.user.is_authenticated:
+
+        cliente = Cliente.objects.get(username=request.user.username)
+        
+        pedidos = Pedido.objects.filter(usuario=cliente)
+        
+        
+        return render(request, 'consulta-pedidos.html', {'pedidos': pedidos})
+        # else: 
+        #     return render(request, 'login-cliente.html')
+    # else:
+    #     return render(request, 'consulta-pedidos.html')
+    

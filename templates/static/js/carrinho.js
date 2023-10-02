@@ -1,6 +1,25 @@
 window.addEventListener("DOMContentLoaded", () => {
+    const sidebarToggle = document.body.querySelector('#sidebarToggle');
+    if (sidebarToggle) {
+        // Uncomment Below to persist sidebar toggle between refreshes
+        // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
+        //     document.body.classList.toggle('sb-sidenav-toggled');
+        // }
+        sidebarToggle.addEventListener('click', event => {
+            event.preventDefault();
+            document.body.classList.toggle('sb-sidenav-toggled');
+            localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+        });
+    }
+
     let cartItems = JSON.parse(localStorage.getItem('carrinho')) || [];
     let cartDisplayArea = document.getElementById('cartDisplayArea');
+
+    var cart_quantity = cartItems.reduce(function (acumulador, item) {
+        return acumulador + item.quantity;
+    }, 0)
+
+    document.getElementById('cart-quantity').innerText = cart_quantity + "x";
 
     let subtotal = 0;
     cartItems.forEach((item, index) => {
@@ -77,24 +96,125 @@ window.addEventListener("DOMContentLoaded", () => {
         subtotal += item.preco * item.quantity;
     });
 
+    let totalDiv = document.createElement('div')
+    totalDiv.className = 'total-control'
+
     let totalDisplay = document.createElement('p');
     totalDisplay.innerText = `Total: R$${subtotal.toFixed(2)}`;
-    cartDisplayArea.appendChild(totalDisplay);
+
+    totalDiv.appendChild(totalDisplay)
+    cartDisplayArea.appendChild(totalDiv);
+
+    
+
+
+    let paymentDiv = document.createElement('div');
+    paymentDiv.className = 'payment-control';
+
+    // Criando e estilizando o título "Forma de Pagamento"
+    let paymentTitle = document.createElement('p');
+    paymentTitle.innerText = 'Forma de Pagamento';
+    paymentTitle.style.textAlign = 'center';  // Centralizar o texto
+    paymentDiv.appendChild(paymentTitle);
+
+    // Função de criação para opções de pagamento (Dinheiro e Cartão)
+    function createPaymentOption(name, value) {
+        let optionDiv = document.createElement('div');
+        optionDiv.className = 'payment-option';
+        optionDiv.style.display = 'flex';
+        optionDiv.style.justifyContent = 'center';  // Centraliza horizontalmente os elementos no container
+        optionDiv.style.marginBottom = "10px";  // Espaçamento na parte inferior
+
+        let radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = 'paymentMethod';
+        radio.value = value;
+        radio.id = value;
+        optionDiv.appendChild(radio);
+
+        let label = document.createElement('label');
+        label.innerText = ' ' + name;  // Espaço antes para não ficar grudado no input
+        label.htmlFor = value;
+        label.style.marginLeft = "5px";  // Pequeno espaçamento à esquerda
+        optionDiv.appendChild(label);
+
+        paymentDiv.appendChild(optionDiv);
+    }
+
+    // Cria opções de pagamento
+    createPaymentOption('Dinheiro', 'dinheiro');
+    createPaymentOption('Cartão', 'cartao');
+
+    // Adiciona o div principal de pagamento ao cartDisplayArea
+    cartDisplayArea.appendChild(paymentDiv);
+
+
+
 
     let finalizeDiv = document.createElement('div');
     finalizeDiv.className = 'finalize-control'
+    finalizeDiv.id = 'finalize-button'
 
     let finalizeButton = document.createElement('button');
     finalizeButton.innerText = 'Finalizar Pedido';
     finalizeButton.className = 'finalize-button'
-    finalizeButton.addEventListener('click', () => {
-        window.location.href = '/finalizar-pedido/'; 
+
+    finalizeDiv.appendChild(finalizeButton);
+    cartDisplayArea.appendChild(finalizeDiv);
+
+
+
+    document.getElementById('finalize-button').addEventListener('click', function() {
+        let cartItems = JSON.parse(localStorage.getItem('carrinho')) || [];
+        
+        let selectedPaymentOption = document.querySelector('input[name="paymentMethod"]:checked');
+    
+        if (!selectedPaymentOption) {
+            alert('Por favor, selecione uma forma de pagamento.');
+            return;
+        }
+    
+        let selectedPaymentMethod = selectedPaymentOption.value;
+    
+
+        $.ajax({
+            url: '/adicionar-item-carrinho/finalizar-pedido/',
+            method: 'POST',
+            data: JSON.stringify({
+                list_items:cartItems,
+                paymentMethod: selectedPaymentMethod 
+            }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function(response) {
+                if(response.success) {
+                    alert('Produto(s) comprado(s) com sucesso!');
+
+                    cartItems = [];
+                    updateLocalStorage(cartItems);
+                    while (cartDisplayArea.firstChild) {
+                        cartDisplayArea.removeChild(cartDisplayArea.firstChild);
+                    }
+
+                    if (response.redirect_url) {
+                        window.location.href = response.redirect_url;
+                    }
+
+
+
+                } else {
+                    alert('Erro na compra!');
+                }
+            },
+            error: function() {
+                alert('Erro ao comunicar com o servidor. Tente novamente.');
+            }
+        })
     });
-    finalizeDiv.appendChild(finalizeButton)
-    cartDisplayArea.appendChild(finalizeButton);
 
 });
 
 function updateLocalStorage(cartItems) {
     localStorage.setItem('carrinho', JSON.stringify(cartItems));
 }
+

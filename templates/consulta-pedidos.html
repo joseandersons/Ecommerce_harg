@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -15,7 +15,7 @@
         
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     </head>
-    <body class="sb-nav-fixed">
+    <body class="sb-nav-fixed sb-sidenav-toggled">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             
             <a class="navbar-brand ps-3" href="{% url 'clientes:principal' %}">Harg</a>
@@ -23,19 +23,20 @@
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                
-            </form>
+                <div class="input-group">
+                    
+                </div>
+            </form action="{% url 'clientes:pedido:consultar_carrinho' %}">
             <div class="d-flex align-items-center">
                 <a href="#" class="text-decoration-none text-white">
                     <i class="fas fa-shopping-cart"></i> <span id="cart-quantity">0x</span>
                 </a>
             
-                <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                    <li class="nav-item dropdown">
+                <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4
+                    <li class="nav-item dropdown">">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#!">Configurações</a></li>
-                            <li><a class="dropdown-item" href="{% url 'clientes:consulta_pedidos' %}">Pedidos</a></li>
                             <li><a class="dropdown-item" href="{% url 'lojas:login_loja' %}">Entrar Dashboard</a></li>
                             <li><a class="dropdown-item" href="{% url 'clientes:login_cliente' %}">Login</a></li>
                             <li><hr class="dropdown-divider" /></li>
@@ -51,7 +52,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
 
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{% url 'clientes:principal' %}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
                                 Início
                             </a>
@@ -61,7 +62,7 @@
                                 Promoções
                             </a>
                             
-                            <a class="nav-link" href="{% url 'clientes:consulta_restaurantes' %}">
+                            <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon"><i class="fas fa-utensils"></i></div>
                                 Restaurantes
                             </a>
@@ -78,57 +79,45 @@
                     </div>
                     
                 </nav>
+
+
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="7000">
-                        <ol class="carousel-indicators">
-                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
-                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
-                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{% static 'img/img1.jpg' %}" class="d-block w-100" alt="Imagem 1"data-bs-interval="7000">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{% static 'img/img2.jpg' %}" class="d-block w-100" alt="Imagem 2"data-bs-interval="7000">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{% static 'img/img3.jpg' %}" class="d-block w-100" alt="Imagem 3"data-bs-interval="7000">
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Anterior</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Próximo</span>
-                        </a>
-                    </div>
-                    <main>
-                        
-                        <div class="container mt-4">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <img src="{% static 'img/img1.jpg' %}" class="img-fluid custom-img" alt="Imagem 1">
-                                </div>
-                                <div class="col-md-3">
-                                    <img src="{% static 'img/img2.jpg' %}" class="img-fluid custom-img" alt="Imagem 2">
-                                </div>
-                                <div class="col-md-3">
-                                    <img src="{% static 'img/img3.jpg' %}" class="img-fluid custom-img" alt="Imagem 3">
-                                </div>
-                                <div class="col-md-3">
-                                    <img src="{% static 'img/img1.jpg' %}" class="img-fluid custom-img" alt="Imagem 1">
-                                </div>
-                                                                
-                            </div>
-                        </div>
-                        
-                    </main>
                     
+                    <!-- seu_template.html (apenas a parte relevante dentro da tag <main>) -->
+                    <main>
+                        {% if pedidos %}
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Data/Hora</th>
+                                    <th>Total</th>
+                                    <th>Loja</th>
+                                    <th>Forma de Pagamento</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pedido in pedidos %}
+                                <tr>
+                                    <td>{{ pedido.data_hora }}</td>
+                                    <td>{{ pedido.total }}</td>
+                                    <td>{{ pedido.loja }}</td>
+                                    <td>{{ pedido.forma_pgt }}</td>
+                                    <td>{{ pedido.get_status_display }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <p>Você não tem pedidos ainda.</p>
+                        {% endif %}
+                    </main>
+
+
+
+
                 </main>
                
                 
@@ -146,9 +135,10 @@
                 </footer>
             </div>
         </div>
-        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="{% static 'js/scripts.js' %}"></script>
+        <script src="{% static 'js/carrinho.js' %}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="{% static 'assets/demo/chart-area-demo.js' %}"></script>
         <script src="{% static 'assets/demo/chart-bar-demo.js' %}"></script>

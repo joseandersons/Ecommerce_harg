@@ -11,6 +11,7 @@ class Pedido(models.Model):
     total = models.FloatField(default=0.0)
     data_hora = models.DateTimeField(auto_now_add=True)
     loja = models.ForeignKey(Loja, on_delete=models.CASCADE, default=None)
+    forma_pgt = models.CharField(max_length=255, default="null")
     status = models.CharField(
         default="C",
         max_length=1,

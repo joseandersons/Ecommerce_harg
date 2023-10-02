@@ -14,5 +14,6 @@ urlpatterns = [
     path('logout-cliente', views.logout_cliente, name='logout_cliente'),
     
     path('adicionar-item-carrinho/', include('pedido.urls', namespace='pedido')),
+    path('consulta-pedidos/', views.consulta_pedidos, name='consulta_pedidos'),
     
 ] 

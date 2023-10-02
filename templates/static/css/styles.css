@@ -11372,3 +11372,84 @@ body {
   padding: 10px;
 }
 
+.finalize-control {
+  display: flex;
+  justify-content: center;
+}
+
+.total-control {
+  display: flex;
+  justify-content: right;
+  padding-right: 3%;
+}
+
+
+
+
+
+
+
+
+
+.payment-control {
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 15px;
+}
+
+.payment-option {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.payment-control label {
+  position: relative;
+  padding-left: 30px;
+  transition: all 0.3s ease;
+}
+
+.payment-control input[type="radio"] {
+  display: none;
+}
+
+.payment-control input[type="radio"]:checked + label {
+  color: #007bff;
+}
+
+.payment-control label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  background-color: #fff;
+}
+
+.payment-control input[type="radio"]:checked + label::before {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.payment-control label::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #007bff;
+  opacity: 0;
+}
+
+.payment-control input[type="radio"]:checked + label::after {
+  opacity: 1;
+}
+

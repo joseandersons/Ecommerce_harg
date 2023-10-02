@@ -2,14 +2,15 @@ from django.db import models
 from django.contrib.auth.models import User
 from uuid import uuid4
 
+from lojas.models import Loja
+
 
 
 class Pedido(models.Model):
     usuario = models.ForeignKey('clientes.Cliente', null=True, blank=True, on_delete=models.CASCADE)
-    uuid = models.UUIDField(default=uuid4, editable=False, unique=True, null=True, blank=True)
-    total = models.FloatField()
+    total = models.FloatField(default=0.0)
     data_hora = models.DateTimeField(auto_now_add=True)
-    # loja = models.ForeignKey(Loja, on_delete=models.CASCADE)
+    loja = models.ForeignKey(Loja, on_delete=models.CASCADE, default=None)
     status = models.CharField(
         default="C",
         max_length=1,
@@ -29,7 +30,7 @@ class ItemPedido(models.Model):
     produto_id = models.CharField(max_length=255)
     preco = models.FloatField()
     quantidade = models.PositiveIntegerField()
-    imagem = models.CharField(max_length=2000)
+    imagem = models.ImageField(upload_to='prodto_carrinho/%Y/%m', blank=True, null=True)
     subtotal = models.FloatField()
 
 

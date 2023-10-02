@@ -31,7 +31,6 @@ def consulta_restaurantes(request):
 @cliente_required
 def consulta_produtos_loja(request, loja_id):
     grupos = Grupo.objects.filter(user_id=loja_id)
-    
     context = {
         'grupos': [(grupo, Produto.objects.filter(grupo=grupo, user_id=loja_id)) for grupo in grupos]
     }
@@ -148,28 +147,28 @@ def criar_conta_cliente(request):
 
 
 def login_cliente(request):
-    if 'cart' in request.session:
-        # O cliente tinha um carrinho na sessão
-        cliente = request.user.cliente
-        pedido, created = Pedido.objects.get_or_create(usuario=cliente, status="C", defaults={"total": 0})
+    # if 'cart' in request.session:
+    #     # O cliente tinha um carrinho na sessão
+    #     cliente = request.user.cliente
+    #     pedido, created = Pedido.objects.get_or_create(usuario=cliente, status="C", defaults={"total": 0})
 
-        for item in request.session['cart']:
-            subtotal = item['preco'] * item['quantity']
-            item_pedido = ItemPedido(
-                pedido=pedido,
-                produto=item['produto'],
-                produto_id=item['product_id'],
-                preco=item['preco'],
-                quantidade=item['quantity'],
-                imagem=item['imagem'],
-                subtotal=subtotal
-            )
-            item_pedido.save()
+    #     for item in request.session['cart']:
+    #         subtotal = item['preco'] * item['quantity']
+    #         item_pedido = ItemPedido(
+    #             pedido=pedido,
+    #             produto=item['produto'],
+    #             produto_id=item['product_id'],
+    #             preco=item['preco'],
+    #             quantidade=item['quantity'],
+    #             imagem=item['imagem'],
+    #             subtotal=subtotal
+    #         )
+    #         item_pedido.save()
 
-            pedido.total += subtotal
-            pedido.save()
+    #         pedido.total += subtotal
+    #         pedido.save()
 
-        del request.session['cart']  
+    #     del request.session['cart']  
         
     if request.method == 'POST':
         print("opa2")

@@ -11289,3 +11289,86 @@ body {
 .clickable {
   cursor: pointer;
 }
+
+
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.cart-item img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.cart-item p {
+  flex: 1;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center; /* Alinhamento vertical */
+  margin-right: 50px;
+}
+
+.item-quantity {
+  margin: 0 5px; /* Adicionando margem para afastar dos botões */
+  line-height: 25px; /* Ajustando a altura da linha para centralizar verticalmente */
+}
+
+.quantity-button {
+  width: 25px;
+  height: 25px;
+  border: none;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  font-size: 18px;
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+
+.finalize-button {
+  background-color: #007BFF;  /* Azul */
+  color: white;               /* Cor da fonte branca */
+  padding: 10px 30px;        /* Padding vertical e horizontal */
+  border: none;              /* Sem borda */
+  cursor: pointer;           /* Cursor de mãozinha quando passar o mouse */
+  margin-top: 20px;          /* Margem no topo para separar do total */
+  font-size: 16px;           /* Tamanho da fonte */
+  border-radius: 5px;        /* Borda arredondada */
+  transition: background-color 0.3s; /* Transição suave ao mudar a cor de fundo */
+}
+
+.finalize-button:hover {
+  background-color: #0056b3; /* Um azul um pouco mais escuro quando passar o mouse */
+}
+
+.cart-item-finalizar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
